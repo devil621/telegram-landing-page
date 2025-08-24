@@ -1,181 +1,529 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Our Telegram</title>
-
-    
-
-    <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '490529536716893');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=490529536716893&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-
-    <style>
-        /* Reset default margin & padding */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Full-screen background */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Background Video */
-        .video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .video-container video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: cover;
-        }
-
-        /* Overlay for readability */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 0;
-        }
-
-        /* Content Box */
-        .container {
-            position: relative;
-            z-index: 1;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 400px;
-            width: 90%;
-        }
-
-        /* Logo */
-        .logo {
-            width: 100px;
-            margin-bottom: 15px;
-        }
-
-        /* Join Button */
-        .cta-button {
-            display: block;
-            padding: 15px;
-            font-size: 18px;
-            background: #0088cc;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .cta-button:hover { background: #005f8a; }
-
-        /* Social Links */
-        .connect {
-            margin-top: 20px;
-        }
-
-        .connect a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            margin: 0 10px;
-        }
-
-        .connect a:hover {
-            text-decoration: underline;
-        }
-
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            .container {
-                width: 90%;
-                padding: 20px;
-            }
-            .cta-button {
-                font-size: 16px;
-                padding: 12px;
-            }
-            .connect a {
-                font-size: 14px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4">
 
-    <!-- Background Video -->
-    <div class="video-container">
-        <video autoplay loop muted playsinline>
-            <source src="background.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+  <div id="passcode-screen" class="w-full max-w-md bg-white p-8 rounded-xl shadow-2xl space-y-6 border border-slate-200">
+    <div class="text-center">
+      <h1 class="text-3xl font-bold text-slate-800">Access Calculator</h1>
+      <p class="text-sm text-slate-500 mt-2">Enter the access code to continue.</p>
+    </div>
+    <div class="space-y-4">
+      <input
+        id="passcode-input"
+        type="password"
+        placeholder="Enter Code"
+        class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        id="passcode-submit-btn"
+        class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 transition-colors"
+      >
+        Unlock
+      </button>
+      <p id="passcode-error" class="text-red-500 text-sm text-center" style="display: none;">Incorrect passcode. Please try again.</p>
+    </div>
+  </div>
+
+  <div id="app-container" class="w-full max-w-4xl bg-white p-8 rounded-xl shadow-2xl space-y-8 border border-slate-200" style="display: none;">
+    
+    <div class="text-center space-y-2">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-800 tracking-tight">Business Calculator</h1>
+      <p class="text-lg text-slate-500">A flexible tool for your calculations.</p>
     </div>
 
-    <!-- Dark Overlay -->
-    <div class="overlay"></div>
+    <div id="calculation-navigation" class="flex items-center justify-between p-4 bg-slate-50 rounded-lg shadow-inner">
+      <button 
+        id="prev-calc-btn"
+        class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Previous
+      </button>
+      <span id="calc-status" class="text-sm font-medium text-slate-600">
+        Calculation 1 of 1
+      </span>
+      <button 
+        id="next-calc-btn"
+        class="px-4 py-2 text-sm font-semibold rounded-lg bg-slate-200 text-slate-700 hover:bg-slate-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Next
+      </button>
+    </div>
 
-    <!-- Content -->
-    <div class="container">
-        <img src="logo.png" alt="Logo" class="logo">
-        <h1>Join Our Telegram</h1>
-        <p>Stay updated with the latest news and discussions!</p>
-        <a href="https://t.me/+t35AY6o4O5lhNTU1" class="cta-button" target="_blank">Join Now</a>
-
-        <div class="connect">
-            <p>Connect with us:</p>
-            <a href="https://t.me/+t35AY6o4O5lhNTU1">Email</a> |
-          <a href="https://t.me/+t35AY6o4O5lhNTU1" target="_blank">Twitter</a> |
-            <a href="https://t.me/+t35AY6o4O5lhNTU1" target="_blank">Instagram</a>
+    <div id="result-section" class="bg-slate-800 text-white p-6 rounded-xl shadow-lg">
+      <div id="result-header" class="flex flex-col sm:flex-row justify-between items-center mb-4">
+        <h2 id="calc-name-display" class="text-2xl sm:text-3xl font-bold">Untitled Calculation</h2>
+        <p id="calc-date-display" class="text-sm text-slate-300 mt-2 sm:mt-0">No Date</p>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 text-center mb-6">
+        <div class="flex flex-col items-center">
+          <span class="text-sm text-slate-400">Profit</span>
+          <span id="profit-display" class="text-lg font-semibold text-green-400">₹0.00</span>
         </div>
+        <div class="flex flex-col items-center">
+          <span class="text-sm text-slate-400">Share Amount</span>
+          <span id="share-display" class="text-lg font-semibold text-orange-400">₹0.00</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <span class="text-sm text-slate-400">Due Amount</span>
+          <span id="due-display" class="text-lg font-semibold text-red-400">₹0.00</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <span class="text-sm text-slate-400">Total Cashout</span>
+          <span id="total-cashout-display" class="text-lg font-semibold text-yellow-400">₹0.00</span>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-x-2 lg:justify-center lg:space-x-4 border-t border-slate-700 pt-4">
+        <span class="text-2xl font-bold text-slate-300">Final Dena Hai</span>
+        <span id="final-dena-hai-display" class="text-2xl font-bold text-red-400">₹0.00</span>
+      </div>
     </div>
 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <div class="space-y-4">
+        <div class="flex flex-col">
+          <label for="name" class="text-sm font-medium text-slate-600 mb-1">Calculation Name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="e.g. August Report"
+            class="w-full px-4 py-2 text-slate-800 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label for="date" class="text-sm font-medium text-slate-600 mb-1">Date</label>
+          <input
+            id="date"
+            name="date"
+            type="text"
+            placeholder="e.g. 01-23 Aug"
+            class="w-full px-4 py-2 text-slate-800 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label for="profit" class="text-sm font-medium text-slate-600 mb-1">Profit</label>
+          <input
+            id="profit"
+            name="profit"
+            type="number"
+            placeholder="Enter amount"
+            class="w-full px-4 py-2 text-slate-800 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label for="due" class="text-sm font-medium text-slate-600 mb-1">Due Amount</label>
+          <input
+            id="due"
+            name="due"
+            type="number"
+            placeholder="Enter amount"
+            class="w-full px-4 py-2 text-slate-800 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          />
+        </div>
+        <div class="flex flex-col">
+          <label for="sharePercentage" class="text-sm font-medium text-slate-600 mb-1">Share Percentage (%)</label>
+          <input
+            id="sharePercentage"
+            name="sharePercentage"
+            type="number"
+            placeholder="Enter percentage"
+            class="w-full px-4 py-2 text-slate-800 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          />
+        </div>
+        
+        <div class="flex flex-col">
+          <label for="totalCashout" class="text-sm font-medium text-slate-600 mb-1">Total Cashout</label>
+          <div class="flex items-center space-x-2">
+            <input
+              id="total-cashout-input"
+              type="number"
+              value="0"
+              readonly
+              placeholder="Total"
+              class="flex-grow w-full px-4 py-2 text-slate-800 bg-slate-200 border border-slate-300 rounded-lg focus:outline-none cursor-not-allowed"
+            />
+            <button
+              id="toggle-cashout-details"
+              class="px-3 py-2 text-xs font-semibold rounded-lg text-white whitespace-nowrap transition-colors bg-blue-500 hover:bg-blue-600"
+            >
+              Add Cashout
+            </button>
+          </div>
+        </div>
+
+        <div id="cashout-details-container" class="space-y-4 pt-4 border-t border-slate-200" style="display: none;">
+          <div class="flex justify-between items-center">
+            <h3 class="text-base font-bold text-slate-700">Detailed Cashout Entries</h3>
+            <button 
+              id="add-new-cashout"
+              class="px-3 py-1 text-xs font-semibold rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+            >
+              + Add New
+            </button>
+          </div>
+          <div id="cashout-entries-list"></div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center mt-6">
+      <button
+        id="add-new-calculation"
+        class="px-6 py-3 text-lg font-bold rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition-colors"
+      >
+        + Add New Calculation
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const PASSCODE = 'Foxcity8@';
+      const localStorageKey = 'businessCalculatorData';
+
+      const passcodeScreen = document.getElementById('passcode-screen');
+      const passcodeInput = document.getElementById('passcode-input');
+      const passcodeSubmitBtn = document.getElementById('passcode-submit-btn');
+      const passcodeError = document.getElementById('passcode-error');
+      const appContainer = document.getElementById('app-container');
+
+      passcodeSubmitBtn.addEventListener('click', () => {
+        if (passcodeInput.value === PASSCODE) {
+          passcodeScreen.style.display = 'none';
+          appContainer.style.display = 'block';
+          initializeCalculator();
+        } else {
+          passcodeError.style.display = 'block';
+        }
+      });
+      
+      passcodeInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          passcodeSubmitBtn.click();
+        }
+      });
+
+      function initializeCalculator() {
+        let calculations = [];
+        let currentCalcIndex = 0;
+        let showCashoutDetails = false;
+
+        // Load data from localStorage on initialization
+        const savedData = localStorage.getItem(localStorageKey);
+        if (savedData) {
+          try {
+            calculations = JSON.parse(savedData);
+            if (!Array.isArray(calculations) || calculations.length === 0) {
+              throw new Error('Invalid data format');
+            }
+          } catch (e) {
+            console.error("Failed to parse localStorage data:", e);
+            calculations = [{
+              name: '', date: '', profit: '', due: '', sharePercentage: '', cashouts: [],
+            }];
+          }
+        } else {
+          calculations = [{
+            name: '', date: '', profit: '', due: '', sharePercentage: '', cashouts: [],
+          }];
+        }
+        
+        const saveToLocalStorage = () => {
+          localStorage.setItem(localStorageKey, JSON.stringify(calculations));
+        };
+
+        const elements = {
+          name: document.getElementById('name'),
+          date: document.getElementById('date'),
+          profit: document.getElementById('profit'),
+          due: document.getElementById('due'),
+          sharePercentage: document.getElementById('sharePercentage'),
+          toggleCashoutDetails: document.getElementById('toggle-cashout-details'),
+          cashoutDetailsContainer: document.getElementById('cashout-details-container'),
+          addNewCashout: document.getElementById('add-new-cashout'),
+          cashoutEntriesList: document.getElementById('cashout-entries-list'),
+          calcNameDisplay: document.getElementById('calc-name-display'),
+          calcDateDisplay: document.getElementById('calc-date-display'),
+          profitDisplay: document.getElementById('profit-display'),
+          shareDisplay: document.getElementById('share-display'),
+          dueDisplay: document.getElementById('due-display'),
+          totalCashoutDisplay: document.getElementById('total-cashout-display'),
+          totalCashoutInput: document.getElementById('total-cashout-input'),
+          finalDenaHaiDisplay: document.getElementById('final-dena-hai-display'),
+          prevCalcBtn: document.getElementById('prev-calc-btn'),
+          nextCalcBtn: document.getElementById('next-calc-btn'),
+          calcStatus: document.getElementById('calc-status'),
+          addNewCalculationBtn: document.getElementById('add-new-calculation')
+        };
+
+        const generateUniqueId = () => Math.random().toString(36).substring(2, 9);
+
+        const formatCurrency = (amount) => {
+          const formatter = new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+            minimumFractionDigits: 2,
+          });
+          return formatter.format(amount).replace(/(\s-)/, '-').replace('₹ ', '₹');
+        };
+
+        const calculateAndRender = () => {
+          const currentCalc = calculations[currentCalcIndex];
+          const profit = parseFloat(currentCalc.profit) || 0;
+          const due = parseFloat(currentCalc.due) || 0;
+          const share = parseFloat(currentCalc.sharePercentage) || 0;
+          
+          const totalCashoutAmount = currentCalc.cashouts.reduce((sum, c) => sum + (parseFloat(c.amount) || 0), 0);
+          
+          const calculatedShareAmount = (profit * share / 100);
+          const finalDenaHai = (profit - calculatedShareAmount) - totalCashoutAmount + due;
+
+          elements.calcNameDisplay.textContent = currentCalc.name || 'Untitled Calculation';
+          elements.calcDateDisplay.textContent = currentCalc.date || 'No Date';
+          
+          elements.profitDisplay.textContent = formatCurrency(profit);
+          elements.shareDisplay.textContent = formatCurrency(calculatedShareAmount);
+          elements.dueDisplay.textContent = formatCurrency(due);
+          elements.totalCashoutDisplay.textContent = formatCurrency(totalCashoutAmount);
+          
+          elements.totalCashoutInput.value = totalCashoutAmount.toFixed(2);
+          
+          elements.finalDenaHaiDisplay.textContent = formatCurrency(finalDenaHai);
+          elements.finalDenaHaiDisplay.className = `text-2xl font-bold ${finalDenaHai < 0 ? 'text-green-400' : 'text-red-400'}`;
+          
+          elements.name.value = currentCalc.name;
+          elements.date.value = currentCalc.date;
+          elements.profit.value = currentCalc.profit;
+          elements.due.value = currentCalc.due;
+          elements.sharePercentage.value = currentCalc.sharePercentage;
+
+          elements.calcStatus.textContent = `Calculation ${currentCalcIndex + 1} of ${calculations.length}`;
+          elements.prevCalcBtn.disabled = currentCalcIndex === 0;
+          elements.nextCalcBtn.disabled = currentCalcIndex === calculations.length - 1;
+
+          renderCashoutEntries();
+        };
+
+        const renderCashoutEntries = () => {
+          elements.cashoutEntriesList.innerHTML = '';
+          const currentCalc = calculations[currentCalcIndex];
+          const sortedCashouts = [...currentCalc.cashouts].sort((a, b) => {
+            return b.id.localeCompare(a.id);
+          });
+
+          sortedCashouts.forEach((cashout, index) => {
+            const entryDiv = document.createElement('div');
+            entryDiv.className = 'p-4 bg-gray-50 rounded-lg shadow-inner mb-4';
+            entryDiv.innerHTML = `
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="text-sm font-bold text-slate-700">Cashout ${currentCalc.cashouts.length - index}</h4>
+                ${currentCalc.cashouts.length > 1 ? `<button data-id="${cashout.id}" class="remove-cashout text-red-500 hover:text-red-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
+                  </svg>
+                </button>` : ''}
+              </div>
+              <div class="space-y-2">
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-slate-500 mb-1">Amount</label>
+                  <input
+                    data-id="${cashout.id}"
+                    type="number"
+                    name="amount"
+                    value="${cashout.amount}"
+                    placeholder="Amount"
+                    class="cashout-input w-full px-3 py-2 text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-slate-500 mb-1">UTR</label>
+                  <input
+                    data-id="${cashout.id}"
+                    type="text"
+                    name="utr"
+                    value="${cashout.utr}"
+                    placeholder="UTR"
+                    class="cashout-input w-full px-3 py-2 text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-slate-500 mb-1">Receiver Name</label>
+                  <input
+                    data-id="${cashout.id}"
+                    type="text"
+                    name="receiverName"
+                    value="${cashout.receiverName}"
+                    placeholder="Receiver Name"
+                    class="cashout-input w-full px-3 py-2 text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-slate-500 mb-1">Date</label>
+                  <input
+                    data-id="${cashout.id}"
+                    type="text"
+                    name="cashoutDate"
+                    value="${cashout.cashoutDate}"
+                    placeholder="e.g. 23 Aug"
+                    class="cashout-input w-full px-3 py-2 text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-slate-500 mb-1">Group</label>
+                  <input
+                    data-id="${cashout.id}"
+                    type="text"
+                    name="cashoutGroup"
+                    value="${cashout.cashoutGroup}"
+                    placeholder="Cashout Group"
+                    class="cashout-input w-full px-3 py-2 text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 transition-colors"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-slate-500 mb-1">Payment Proof</label>
+                  <input
+                    data-id="${cashout.id}"
+                    type="file"
+                    accept="image/*"
+                    class="cashout-image-input w-full text-slate-800 file:mr-4 file:py-2 file:px-4
+                           file:rounded-full file:border-0
+                           file:text-sm file:font-semibold
+                           file:bg-violet-50 file:text-violet-700
+                           hover:file:bg-violet-100"
+                  />
+                  ${cashout.paymentProofImage ? `<img src="${cashout.paymentProofImage}" alt="Payment Proof" class="mt-2 rounded-lg max-w-full h-auto shadow-md" />` : ''}
+                </div>
+              </div>
+            `;
+            elements.cashoutEntriesList.appendChild(entryDiv);
+          });
+
+          attachCashoutEventListeners();
+        };
+
+        const handleGlobalInputChange = (e) => {
+          const { name, value } = e.target;
+          calculations[currentCalcIndex][name] = value;
+          calculateAndRender();
+          saveToLocalStorage();
+        };
+
+        const handleCashoutDetailChange = (e) => {
+          const id = e.target.closest('input, button').dataset.id;
+          const { name, value } = e.target;
+          calculations[currentCalcIndex].cashouts = calculations[currentCalcIndex].cashouts.map(c => c.id === id ? { ...c, [name]: value } : c);
+          calculateAndRender();
+          saveToLocalStorage();
+        };
+
+        const handleImageUpload = (e) => {
+          const id = e.target.closest('input').dataset.id;
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+              calculations[currentCalcIndex].cashouts = calculations[currentCalcIndex].cashouts.map(c => c.id === id ? { ...c, paymentProofImage: reader.result } : c);
+              renderCashoutEntries();
+              calculateAndRender();
+              saveToLocalStorage();
+            };
+            reader.readAsDataURL(file);
+          }
+        };
+
+        const handleRemoveCashout = (e) => {
+          const id = e.target.closest('button').dataset.id;
+          calculations[currentCalcIndex].cashouts = calculations[currentCalcIndex].cashouts.filter(c => c.id !== id);
+          renderCashoutEntries();
+          calculateAndRender();
+          saveToLocalStorage();
+        };
+
+        const attachGlobalEventListeners = () => {
+          elements.name.addEventListener('input', handleGlobalInputChange);
+          elements.date.addEventListener('input', handleGlobalInputChange);
+          elements.profit.addEventListener('input', handleGlobalInputChange);
+          elements.due.addEventListener('input', handleGlobalInputChange);
+          elements.sharePercentage.addEventListener('input', handleGlobalInputChange);
+
+          elements.toggleCashoutDetails.addEventListener('click', () => {
+            showCashoutDetails = !showCashoutDetails;
+            elements.cashoutDetailsContainer.style.display = showCashoutDetails ? 'block' : 'none';
+            elements.toggleCashoutDetails.textContent = showCashoutDetails ? 'Hide Details' : 'Add Cashout';
+            if (showCashoutDetails && calculations[currentCalcIndex].cashouts.length === 0) {
+              calculations[currentCalcIndex].cashouts.unshift({ 
+                id: generateUniqueId(), amount: '', utr: '', receiverName: '', cashoutDate: '', cashoutGroup: '', paymentProofImage: '' 
+              });
+            }
+            renderCashoutEntries();
+            calculateAndRender();
+            saveToLocalStorage();
+          });
+
+          elements.addNewCashout.addEventListener('click', () => {
+            calculations[currentCalcIndex].cashouts.unshift({ 
+              id: generateUniqueId(), amount: '', utr: '', receiverName: '', cashoutDate: '', cashoutGroup: '', paymentProofImage: '' 
+            });
+            renderCashoutEntries();
+            calculateAndRender();
+            saveToLocalStorage();
+          });
+
+          elements.prevCalcBtn.addEventListener('click', () => {
+            if (currentCalcIndex > 0) {
+                currentCalcIndex--;
+                calculateAndRender();
+            }
+          });
+
+          elements.nextCalcBtn.addEventListener('click', () => {
+            if (currentCalcIndex < calculations.length - 1) {
+                currentCalcIndex++;
+                calculateAndRender();
+            }
+          });
+          
+          elements.addNewCalculationBtn.addEventListener('click', () => {
+            calculations.push({
+              name: '', date: '', profit: '', due: '', sharePercentage: '', cashouts: [],
+            });
+            currentCalcIndex = calculations.length - 1;
+            calculateAndRender();
+            saveToLocalStorage();
+          });
+        };
+
+        const attachCashoutEventListeners = () => {
+          elements.cashoutEntriesList.querySelectorAll('.cashout-input').forEach(input => {
+            input.addEventListener('input', handleCashoutDetailChange);
+          });
+          elements.cashoutEntriesList.querySelectorAll('.cashout-image-input').forEach(input => {
+            input.addEventListener('change', handleImageUpload);
+          });
+          elements.cashoutEntriesList.querySelectorAll('.remove-cashout').forEach(button => {
+            button.addEventListener('click', handleRemoveCashout);
+          });
+        };
+
+        attachGlobalEventListeners();
+        calculateAndRender();
+      }
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
